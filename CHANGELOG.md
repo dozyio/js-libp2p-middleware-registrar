@@ -1,3 +1,9 @@
+## [1.0.1](https://github.com/dozyio/js-libp2p-middleware-registrar/compare/v1.0.0...v1.0.1) (2025-03-08)
+
+### Trivial Changes
+
+* bump deps ([02517a7](https://github.com/dozyio/js-libp2p-middleware-registrar/commit/02517a76bc7105d758b3c74ab731d0c2570625be))
+
 ## 1.0.0 (2025-03-08)
 
 

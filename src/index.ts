@@ -44,9 +44,16 @@ export interface Middleware {
   protocol?: string
 
   /**
-   * Exclude is a list of protocols that won't have middleware applied
+   * Exclude is a list of protocols that won't have middleware applied.
+   * Set either exclude or include, will throw if both are set.
    */
   exclude?: string[]
+
+  /**
+   * Include is a list of protocols that will have middleware applied.
+   * Set either exclude or include, will throw if both are set.
+   */
+  include?: string[]
 }
 
 /**

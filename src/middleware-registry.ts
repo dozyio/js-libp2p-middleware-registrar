@@ -23,6 +23,10 @@ export class MiddlewareRegistrar implements Registrar, Startable {
     this.handlerOptions = new Map()
     // this.defaultOptions = defaultOptions
     this.started = false
+
+    if (this.middleware.exclude != null && this.middleware.include != null) {
+      throw new Error('Cannot use both include and exclude options')
+    }
   }
 
   readonly [Symbol.toStringTag] = '@libp2p/middleware-registrar'
@@ -87,6 +91,14 @@ export class MiddlewareRegistrar implements Registrar, Startable {
   async handle (protocol: string, handler: StreamHandler, options?: StreamHandlerOptions): Promise<void> {
     if (this.middleware.protocol != null) {
       if (protocol === this.middleware.protocol) {
+        this.log(`Skipping middleware for ${protocol}, registering with standard registrar`)
+        await this.registrar.handle(protocol, handler, options)
+        return
+      }
+    }
+
+    if (this.middleware.include != null) {
+      if (!this.middleware.include.includes(protocol)) {
         this.log(`Skipping middleware for ${protocol}, registering with standard registrar`)
         await this.registrar.handle(protocol, handler, options)
         return

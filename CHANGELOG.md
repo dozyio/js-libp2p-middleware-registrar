@@ -1,3 +1,9 @@
+## [1.1.1](https://github.com/dozyio/js-libp2p-middleware-registrar/compare/v1.1.0...v1.1.1) (2025-03-11)
+
+### Bug Fixes
+
+* move include exclude to MiddlewareRegistrarOptions ([d799b90](https://github.com/dozyio/js-libp2p-middleware-registrar/commit/d799b9030a058787d049f7ec976ac96cd4ce40ec))
+
 ## [1.1.0](https://github.com/dozyio/js-libp2p-middleware-registrar/compare/v1.0.1...v1.1.0) (2025-03-11)
 
 ### Features

@@ -1,4 +1,4 @@
-import type { Middleware, MiddlewareDecoratorOptions } from './index.js'
+import type { Middleware, MiddlewareDecoratorOptions, MiddlewareRegistrarOptions } from './index.js'
 import type { ComponentLogger, Logger, Startable, StreamHandler, StreamHandlerRecord, StreamHandlerOptions, Topology, IncomingStreamData } from '@libp2p/interface'
 import type { Registrar } from '@libp2p/interface-internal'
 
@@ -12,19 +12,19 @@ export class MiddlewareRegistrar implements Registrar, Startable {
   private readonly log: Logger
   private readonly decoratedHandlers: Map<string, StreamHandler>
   private readonly handlerOptions: Map<string, MiddlewareDecoratorOptions>
-  // private readonly defaultOptions: MiddlewareDecoratorOptions
+  private readonly options: MiddlewareRegistrarOptions
   private started: boolean
 
-  constructor (registrar: Registrar, middleware: Middleware, logger: ComponentLogger, defaultOptions: MiddlewareDecoratorOptions = {}) {
+  constructor (registrar: Registrar, middleware: Middleware, logger: ComponentLogger, options: MiddlewareRegistrarOptions = {}) {
     this.registrar = registrar
     this.middleware = middleware
     this.log = logger.forComponent('libp2p:middleware-registrar')
     this.decoratedHandlers = new Map()
     this.handlerOptions = new Map()
-    // this.defaultOptions = defaultOptions
+    this.options = options
     this.started = false
 
-    if (this.middleware.exclude != null && this.middleware.include != null) {
+    if (this.options.exclude != null && this.options.include != null) {
       throw new Error('Cannot use both include and exclude options')
     }
   }
@@ -97,16 +97,16 @@ export class MiddlewareRegistrar implements Registrar, Startable {
       }
     }
 
-    if (this.middleware.include != null) {
-      if (!this.middleware.include.includes(protocol)) {
+    if (this.options.include != null) {
+      if (!this.options.include.includes(protocol)) {
         this.log(`Skipping middleware for ${protocol}, registering with standard registrar`)
         await this.registrar.handle(protocol, handler, options)
         return
       }
     }
 
-    if (this.middleware.exclude != null) {
-      if (this.middleware.exclude.includes(protocol)) {
+    if (this.options.exclude != null) {
+      if (this.options.exclude.includes(protocol)) {
         this.log(`Excluding middleware for ${protocol}, registering with standard registrar`)
         await this.registrar.handle(protocol, handler, options)
         return

@@ -42,18 +42,6 @@ export interface Middleware {
    * name here.
    */
   protocol?: string
-
-  /**
-   * Exclude is a list of protocols that won't have middleware applied.
-   * Set either exclude or include, will throw if both are set.
-   */
-  exclude?: string[]
-
-  /**
-   * Include is a list of protocols that will have middleware applied.
-   * Set either exclude or include, will throw if both are set.
-   */
-  include?: string[]
 }
 
 /**
@@ -82,6 +70,18 @@ export interface MiddlewareRegistrarOptions {
    * Per-protocol middleware options
    */
   protocolOptions?: Record<string, MiddlewareDecoratorOptions>
+
+  /**
+   * Exclude is a list of protocols that won't have middleware applied.
+   * Set either exclude or include, will throw if both are set.
+   */
+  exclude?: string[]
+
+  /**
+   * Include is a list of protocols that will have middleware applied.
+   * Set either exclude or include, will throw if both are set.
+   */
+  include?: string[]
 }
 
 /**
@@ -99,7 +99,7 @@ export function middlewareRegistrar (
     components.registrar,
     middleware,
     components.logger,
-    options.defaultOptions
+    options
   )
 
   // Configure protocol-specific options if provided

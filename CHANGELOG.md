@@ -1,3 +1,9 @@
+## [1.1.0](https://github.com/dozyio/js-libp2p-middleware-registrar/compare/v1.0.1...v1.1.0) (2025-03-11)
+
+### Features
+
+* include option ([c5056cc](https://github.com/dozyio/js-libp2p-middleware-registrar/commit/c5056cce229c89ed779d1c1626e100f4812fe173))
+
 ## [1.0.1](https://github.com/dozyio/js-libp2p-middleware-registrar/compare/v1.0.0...v1.0.1) (2025-03-08)
 
 ### Trivial Changes
